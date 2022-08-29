@@ -67,24 +67,28 @@ def post_order_traversal_with_stack(root):
             root = root.left
         root = stack.pop()
         if not root.right or root.right == prev:
+            # 情况1:右节点不存在存在,
+            # 情况2:右节点存在且等于prev
             res.append(root.data)
             prev = root
             root = None
         else:
+            # 右节点存在,且不等于prev
             stack.append(root)
             root = root.right
     return res
 
 
 if __name__ == '__main__':
-    my_input_list = [3, 9, None, None, 4, 5, None, None, 7, None, None]
+    # my_input_list = [3, 9, None, None, 4, 5, None, None, 7, None, None]
+    my_input_list = [1, 2, 4, None, None, 5, None, None, 3, None, 6, None, None]
     root1 = create_binary_tree(my_input_list)
     print("前序遍历：")
-    print("result", [3, 9, 4, 5, 7])
+    # print("result", [3, 9, 4, 5, 7])
     print("current", pre_order_traversal_with_stack(root1))
     # print("中序遍历：")
     # print("result", [9, 7, 5, 4, 3])
-    # print("current", in_order_traversal_with_stack(root1))
+    print("current", in_order_traversal_with_stack(root1))
     # print("后序遍历：")
     # print("result", [9, 5, 7, 4, 3])
-    # print("current", post_order_traversal_with_stack(root1))
+    print("current", post_order_traversal_with_stack(root1))

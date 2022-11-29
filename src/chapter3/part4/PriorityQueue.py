@@ -15,6 +15,9 @@ class PriorityQueue:
         head = self.array[0]
         self.array[0] = self.array[self.size-1]
         self.size -= 1
+        self.array.pop()
+        if not self.array:
+            return head
         self.down_adjust()
         return head
 
@@ -50,10 +53,14 @@ class PriorityQueue:
 
 
 queue = PriorityQueue()
-queue.enqueue(3)
-queue.enqueue(5)
-queue.enqueue(10)
+queue.enqueue(1)
 queue.enqueue(2)
+queue.enqueue(3)
+queue.enqueue(4)
+queue.enqueue(5)
+print(queue.dequeue())
+print(queue.dequeue())
+queue.enqueue(6)
 queue.enqueue(7)
 print(queue.dequeue())
 print(queue.dequeue())

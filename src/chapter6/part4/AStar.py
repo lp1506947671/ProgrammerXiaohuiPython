@@ -27,7 +27,9 @@ def a_star_search(start, end):
     return None
 
 
-def find_min_gird(open_list=[]):
+def find_min_gird(open_list):
+    if not open_list:
+        open_list = []
     temp_grid = open_list[0]
     for grid in open_list:
         if grid.f < temp_grid.f:
@@ -35,33 +37,41 @@ def find_min_gird(open_list=[]):
     return temp_grid
 
 
-def find_neighbors(grid, open_list=[], close_list=[]):
+def find_neighbors(grid, open_list=None, close_list=None):
+    if not open_list:
+        open_list = []
+    if not close_list:
+        close_list = []
     grid_list = []
-    if is_valid_grid(grid.x, grid.y-1, open_list, close_list):
-        grid_list.append(Grid(grid.x, grid.y-1))
-    if is_valid_grid(grid.x, grid.y+1, open_list, close_list):
-        grid_list.append(Grid(grid.x, grid.y+1))
-    if is_valid_grid(grid.x-1, grid.y, open_list, close_list):
-        grid_list.append(Grid(grid.x-1, grid.y))
-    if is_valid_grid(grid.x+1, grid.y, open_list, close_list):
-        grid_list.append(Grid(grid.x+1, grid.y))
+    if is_valid_grid(grid.x, grid.y - 1, open_list, close_list):
+        grid_list.append(Grid(grid.x, grid.y - 1))
+    if is_valid_grid(grid.x, grid.y + 1, open_list, close_list):
+        grid_list.append(Grid(grid.x, grid.y + 1))
+    if is_valid_grid(grid.x - 1, grid.y, open_list, close_list):
+        grid_list.append(Grid(grid.x - 1, grid.y))
+    if is_valid_grid(grid.x + 1, grid.y, open_list, close_list):
+        grid_list.append(Grid(grid.x + 1, grid.y))
     return grid_list
 
 
-def is_valid_grid(x, y, open_list=[], close_list=[]):
-        # 是否超过边界
-        if x < 0 or x >= len(MAZE) or y < 0 or y >= len(MAZE[0]):
-            return False
-        # 是否有障碍物
-        if MAZE[x][y] == 1:
-            return False
-        # 是否已经在open_list中
-        if contain_grid(open_list, x, y):
-            return False
-        # 是否已经在closeList中
-        if contain_grid(close_list, x, y):
-            return False
-        return True
+def is_valid_grid(x, y, open_list=None, close_list=None):
+    if not open_list:
+        open_list = []
+    if not close_list:
+        close_list = []
+    # 是否超过边界
+    if x < 0 or x >= len(MAZE) or y < 0 or y >= len(MAZE[0]):
+        return False
+    # 是否有障碍物
+    if MAZE[x][y] == 1:
+        return False
+    # 是否已经在open_list中
+    if contain_grid(open_list, x, y):
+        return False
+    # 是否已经在closeList中
+    if contain_grid(close_list, x, y):
+        return False
+    return True
 
 
 def contain_grid(grids, x, y):
@@ -75,8 +85,11 @@ class Grid:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        # 从起始到终点的总距离
         self.f = 0
+        # 从起始点到当前点已经走了的距离
         self.g = 0
+        # 从当前点到终点的距离
         self.h = 0
         self.parent = None
 
@@ -114,10 +127,3 @@ for i in range(0, len(MAZE)):
         else:
             print(str(MAZE[i][j]) + ", ", end='')
     print()
-
-
-
-
-
-
-

@@ -1,9 +1,9 @@
-
-def up_adjust(array=[]):
+def up_adjust(array=None):
     """
-    二叉堆的尾节点上浮操作
+    二叉堆的尾节点上浮操作:求出最小的元素
     :param array: 原数组
     """
+    array = array or []
     child_index = len(array) - 1
     parent_index = (child_index - 1) // 2
     # temp保存插入的叶子节点值，用于最后的赋值
@@ -16,13 +16,14 @@ def up_adjust(array=[]):
     array[child_index] = temp
 
 
-def down_adjust(parent_index, length, array=[]):
+def down_adjust(parent_index, length, array=None):
     """
     二叉堆的节点下沉操作
     :param parent_index: 待下沉的节点下标
     :param length: 堆的长度范围
     :param array: 原数组
     """
+    array = array or []
     # temp保存父节点值，用于最后的赋值
     temp = array[parent_index]
     child_index = 2 * parent_index + 1
@@ -40,16 +41,18 @@ def down_adjust(parent_index, length, array=[]):
     array[parent_index] = temp
 
 
-def build_heap(array=[]):
+def build_heap(array=None):
     """
     二叉堆的构建操作
     :param array: 原数组
     """
+    array = array or []
     # 从最后一个非叶子节点开始，依次下沉调整
-    for i in range((len(array)-2) // 2, -1, -1):
+    for i in range((len(array) - 2) // 2, -1, -1):
         down_adjust(i, len(array), array)
 
 
+# 前提:基于最小堆
 my_array = list([1, 3, 2, 6, 5, 7, 8, 9, 10, 0])
 up_adjust(my_array)
 print(my_array)

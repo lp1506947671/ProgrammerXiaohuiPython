@@ -1,5 +1,6 @@
-
-def count_sort(array=[]):
+def count_sort(array=None):
+    if not array:
+        return []
     # 1.得到数列的最大值
     max_value = array[0]
     for i in range(1, len(array)):
@@ -18,7 +19,7 @@ def count_sort(array=[]):
     return sorted_array
 
 
-def count_sort(array=None):
+def count_sort_v2(array=None):
     if not array:
         return []
     max_value = array[0]
@@ -42,7 +43,6 @@ def count_sort(array=None):
         result[count_array[item - min_value] - 1] = item
         count_array[item - min_value] -= 1
     return result
-
 
 
 my_array = list([4, 4, 6, 5, 3, 2, 8, 1, 7, 5, 6, 0, 10])
